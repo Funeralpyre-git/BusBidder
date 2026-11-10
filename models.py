@@ -82,7 +82,7 @@ class Offer:
         self.price = float(price)
         self.transfers = transfers
         self.customer_rating = float(customer_rating)
-        self.c02_emissions_kg = float(co2_emissions_kg)
+        self.co2_emissions_kg = float(co2_emissions_kg)
         self.fare_condition = fare_condition
 
         # protected state for inventory management
