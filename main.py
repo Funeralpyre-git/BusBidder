@@ -9,6 +9,7 @@ from models import Company, FareCondition, Offer, TravelerProfile, Booking
 from pathlib import Path
 from loader import load_companies, load_offers, save_rejected_records
 from scoring import ScoringEngine
+from recommender import PresetProfiles, RecommendationExplainer
 
 """
 ##### START MODELS.PY TEST #####
@@ -120,40 +121,30 @@ for offer, filter_name, reason in disqualified:
 """
 
 
-##### START SCORING.PY MODULE #####
+##### START SCORING.PY MODULE (+ RECOMMENDER.PY) #####
 # 1. setup sample companies and fare terms
-solruta = Company("COMP-SOL01", "SolRuta", "low_cost")
-camino = Company("COMP-CAM02", "Camino Express", "express")
+solruta = Company("COMP-SOL01", "SolRuta", "low_cost", fleet_rating=4.2, eco_certified=True)
+camino = Company("COMP-CAM02", "Camino Express", "express", fleet_rating=4.7, eco_certified=False)
 
 fare_nonflex = FareCondition(is_changeable=False, is_refundable=False)
-fare_flex = FareCondition(is_changeable=True, is_refundable=False, change_fee_eur=0.0)
+fare_flex = FareCondition(is_changeable=True, is_refundable=True, change_fee_eur=0.0)
 
-# 2. create candidate offers on Madrid -> Barcelona route
 offers = [
     # offer A
-    Offer("OFF-001", solruta, "Madrid", "Barcelona", date(2026, 7, 12), time(8, 0), time(15, 0), 420, 28.0, 0, 20, 4.1, 19.5, fare_nonflex),
+    Offer("OFF-MAD-BCN-101", solruta, "Madrid", "Barcelona", date(2026, 7, 12), time(8, 0), time(14, 30), 390, 29.50, 0, 15, 4.3, 14.5, fare_nonflex),
     # offer B
-    Offer("OFF-002", camino, "Madrid", "Barcelona", date(2026, 7, 12), time(9, 30), time(15, 10), 340, 45.0, 0, 15, 4.7, 14.2, fare_flex),
-    # offer C
-    Offer("OFF-003", solruta, "Madrid", "Barcelona", date(2026, 7, 12), time(11, 0), time(17, 20), 380, 35.0, 0, 10, 4.3, 16.0, fare_nonflex),
+    Offer("OFF-MAD-BCN-102", camino, "Madrid", "Barcelona", date(2026, 7, 12), time(9, 15), time(14, 45), 330, 48.00, 0, 20, 4.8, 18.0, fare_flex),
 ]
 
-# 3. create budget traveler profile
-budget_weights = {"price": 0.60, "duration": 0.20, "departure_convenience": 0.10, "flexibility": 0.10}
-budget_profile = TravelerProfile("Alice", "Madrid", "Barcelona", date(2026, 7, 10), date(2026, 7, 15), weights=budget_weights)
+# 2. get preset profiles
+budget_user = PresetProfiles.budget_traveler()
+biz_user = PresetProfiles.business_traveler()
 
-# 4. create business traveler profile
-biz_weights = {"duration": 0.40, "flexibility": 0.30, "departure_convenience": 0.20, "price": 0.10}
-biz_profile = TravelerProfile("Bob", "Madrid", "Barcelona", date(2026, 7, 10), date(2026, 7, 15), weights=biz_weights)
-
+# 3. Score and explanation
 engine = ScoringEngine()
+explainer = RecommendationExplainer()
 
-print("---- BUDGET TRAVELER RANKINGS ----")
-for idx, scored in enumerate(engine.score_offers(offers, budget_profile), start=1):
-    print(f"Rank {idx}: {scored.offer.offer_id} ({scored.offer.company.name}) - Score: {scored.total_score}/100")
-    print(f"        Sub-scores: {scored.criterion_scores}")
+# evaluate budget user
+budget_scored = engine.score_offers(offers, budget_user)
+print(explainer.format_full_recommendation_report(budget_scored, budget_user))
 
-print("\n---- BUSINESS TRAVELER RANKINGS ----")
-for idx, scored in enumerate(engine.score_offers(offers, biz_profile), start=1):
-    print(f"Rank {idx}: {scored.offer.offer_id} ({scored.offer.company.name}) - Score: {scored.total_score}/100")
-    print(f"        Sub-scores: {scored.criterion_scores}")
