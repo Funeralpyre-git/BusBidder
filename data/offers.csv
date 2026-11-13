@@ -1,0 +1,7 @@
+offer_id,company_id,origin,destination,travel_date,departure_time,arrival_time,duration_minutes,price,transfers,available_seats,customer_rating,co2_emissions_kg,is_changeable,is_refundable,luggage_kg,change_fee_eur
+OFF-MAD-BCN-101,COMP-SOL01,Madrid,Barcelona,2026-07-12,08:00:00,14:30:00,390,29.50,0,15,4.2,19.5,false,false,20.0,0.0
+OFF-MAD-BCN-102,COMP-CAM02,Madrid,Barcelona,2026-07-12,09:15:00,14:45:00,330,48.00,0,20,4.8,18.0,true,true,25.0,0.0
+OFF-MAD-BCN-103,COMP-VER04,Madrid,Barcelona,2026-07-12,10:00:00,16:15:00,375,36.00,0,12,4.7,11.2,true,false,20.0,5.0
+OFF-MAD-VAL-104,COMP-COS03,Madrid,Valencia,2026-07-12,08:30:00,12:30:00,240,22.00,0,8,4.3,13.0,false,false,20.0,0.0
+OFF-MAD-AGP-105,COMP-NOC05,Madrid,Malaga,2026-07-12,23:00:00,06:00:00,420,32.00,0,18,4.1,16.5,true,false,20.0,10.0
+OFF-MAD-BCN-999,COMP-SOL01,Madrid,Barcelona,2026-07-12,12:00:00,18:00:00,360,fast,0,10,4.0,15.0,false,false,20.0,0.0

@@ -1,4 +1,6 @@
-##### Hard constraint filtering engine #####
+"""
+Hard constraint filtering engine
+"""
 
 from abc import ABC, abstractmethod
 from typing import List, Tuple, Optional

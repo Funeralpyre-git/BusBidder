@@ -1,0 +1,6 @@
+company_id,name,profile_type,fleet_rating,eco_certified
+COMP-SOL01,SolRuta,low_cost,4.1,false
+COMP-CAM02,Camino Express,express,4.7,false
+COMP-COS03,CostaLink,coastal,4.3,false
+COMP-VER04,VerdeBus,eco,4.8,true
+COMP-NOC05,NocheVia,overnight,4.0,false
