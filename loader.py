@@ -1,5 +1,5 @@
 """
-Handles file reading (CSV/JSON), data parsing, object instantiation,
+Handles file reading (CSV), data parsing, object instantiation,
 and logging corrupted records to output/rejected_records.txt
 """
 
@@ -31,13 +31,6 @@ class RejectedRecord:
 
     def __repr__(self) -> str:
         return self.__str__()
-
-    """
-    expected CSV columns should at least be:
-    company_id, name, profile_type, fleet_rating, eco_certified.
-    """
-
-
 
 def load_companies(file_path: Path, rejected_records: List[RejectedRecord]) -> Dict[str, Company]:
     companies = {}
