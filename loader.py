@@ -167,7 +167,7 @@ def save_rejected_records(rejected_records: List[RejectedRecord], output_dir: Pa
 
     with open(target_file, mode="w", encoding="utf-8", newline="") as f:
         f.write("===========================================================\n")
-        f.write("           BUSBIDDER SPAIN - REJECTED RECORDS LOG          ")
+        f.write("           BUSBIDDER SPAIN - REJECTED RECORDS LOG          \n")
         f.write("===========================================================\n\n")
         if not rejected_records:
             f.write("No rejected records found\n")

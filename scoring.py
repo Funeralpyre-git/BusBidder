@@ -51,7 +51,7 @@ class ScoringEngine:
         "departure_convenience": False,
         "flexibility": True,
         "rating": True,
-        "emissions": True,
+        "emissions": False,
     }
 
     def __init__(self):

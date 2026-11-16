@@ -168,7 +168,7 @@ class RecommendationExplainer:
 
         rationale = (
             f"'{top_pick.offer.offer_id}' operated by {top_pick.offer.company.name} "
-            f"is recommended as the top match for {profile.name} with a total composite score of"
+            f"is recommended as the top match for {profile.name} with a total composite score of "
             f"{top_pick.total_score:.1f}/100. "
             f"The primary preference driver for this profile was '{top_driver}' (weight {weights[top_driver]*100:.0f}%), "
             f"where this offer scored {driver_score:.1f}/100. "
