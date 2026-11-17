@@ -56,18 +56,41 @@ Run the main application using python3 (or python)
 
 2.1. Default Execution (Budget Traveler Profile)
 ```
-python3 main.py --companies data/companies.csv --offers data/offers.csv --profile budget --output output
+# The default command allows you to simply run the main.py script without any other suffixes
+> python3 main.py
 ```
 2.2. Running other traveler profiles
 ```
-# Business Traveler Profile (Prioritizes travel speed and ticket flexibility)
-python3 main.py --companies data/companies.csv --offers data/offers.csv --profile business --output output
+# Budget Traveler Profile (Prioritizes ticket price)
+> python3 main.py --profile budget
 
-# Eco-Conscious Traveler Profile (Prioritizes low CO2 emissions and eco-certified carriers
-python3 main.py --companies data/companies.csv --offers data/offers.csv --profile eco --output output
+# Business Traveler Profile (Prioritizes travel speed and ticket flexibility)
+> python3 main.py --profile business
+
+# Eco-Conscious Traveler Profile (Prioritizes low CO2 emissions and eco-certified carriers)
+> python3 main.py  --profile eco
 
 # Comfort & Flexibility Tourist Profile (Prioritizes customer ratings and refundable terms)
-python3 main.py --companies data/companies.csv --offers data/offers.csv --profile comfort --output output
+> python3 main.py --profile comfort
+```
+2.3. Additional Command Parameters
+```
+# The program supports selective parameters
+
+# Path to the companies CSV file containing carrier profiles and ratings
+--companies [default: data/companies.csv]
+
+# Path to the offers CSV file containing journey information
+--offers [default: data/offers.csv]
+
+# Select the active traveler profile (supports budget (default), business, eco, and comfort
+--profile [budget, business, eco, comfort]
+
+# Target output directory where generated reports, logs, and bookings are written
+--output [filepath]
+
+# Choose whether booking executes seat reservation for top recommendation (default: True)
+--book/no-book
 ```
 ### Running the Automated Unit Test Suite
 The project includes an automated test suite implemented in tests.py using Python's standard `unittest` framework

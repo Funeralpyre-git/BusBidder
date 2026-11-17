@@ -18,14 +18,14 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--companies",
         type=str,
-        default="/data/companies.csv",
+        default="data/companies.csv",
         help="Path to offers CSV file (default: data/companies.csv)"
     )
 
     parser.add_argument(
         "--offers",
         type=str,
-        default="/data/offers.csv",
+        default="data/offers.csv",
         help="Path to offers CSV file (default: data/offers.csv)"
     )
 
@@ -46,8 +46,17 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument(
         "--book",
+        dest="book",
         action="store_true",
+        default=True,
         help="Automatically execute reservation for top recommended offer"
+    )
+
+    parser.add_argument(
+        "--no-book",
+        dest="book",
+        action="store_false",
+        help="Disable automatic seat booking"
     )
 
     return parser.parse_args()
@@ -112,7 +121,7 @@ def main():
 
         # 6. execute reservation
         booking_ref = "N/A"
-        if scored_offers and (args.book or True):
+        if scored_offers and (args.book):
             booking_mgr = BookingManager(output_dir=output_dir)
             top_pick = scored_offers[0].offer
             confirmed_booking = booking_mgr.create_booking(top_pick, profile)
